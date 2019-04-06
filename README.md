@@ -1,3 +1,2 @@
 # Tuto-Blockchain
-Tutorial Blockchain  Sfax 
-A clloaction of smart contracts as tutorials
+A collection of smart contracts and other tools for the Blockchain Seminar in Sfax 
