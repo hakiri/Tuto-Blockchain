@@ -1,55 +1,56 @@
-pragma solidity ^0.4.18;
-import 'zeppelin-solidity/contracts/math/SafeMath.sol';
+// pragma solidity ^0.4.18;
+
+pragma solidity >=0.4.22 <0.6.0;
+
+// import library file
+// Library SafeMath  
+import "./SafeMath.sol";
+
+
 /**
  * Token
  *
  * @title A fixed supply ERC-20 token.
  * https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
  */
+ 
 contract Token {
+    
     using SafeMath for uint;
-    event Transfer(
-        address indexed _from,
-        address indexed _to,
-        uint256 _value
-    );
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _value
-    );
+    
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner,address indexed _spender,uint256 _value);
+   
     string public symbol;
     string public name;
     uint8 public decimals;
     uint public totalSupply;
     mapping(address => uint) balances;
+   
     mapping(address => mapping(address => uint)) allowed;
     /**
      * Constructs the Token contract and gives all of the supply to the address
      *     that deployed it. The fixed supply is 1 billion tokens with up to 18
      *     decimal places.
      */
-    function Token() public {
+    constructor () public {
         symbol = 'TOK';
         name = 'Token';
         decimals = 18;
         totalSupply = 1000000000 * 10**uint(decimals);
         balances[msg.sender] = totalSupply;
-        Transfer(address(0), msg.sender, totalSupply);
+        emit Transfer(address(0), msg.sender, totalSupply);
     }
     /**
      * @dev Fallback function
      */
-    function() public payable { revert(); }
+    function() external payable { revert(); }
     /**
      * Gets the token balance of any wallet.
      * @param _owner Wallet address of the returned token balance.
      * @return The balance of tokens in the wallet.
      */
-    function balanceOf(address _owner)
-        public
-        constant
-        returns (uint balance)
+    function balanceOf(address _owner)  public view returns (uint balance)
     {
         return balances[_owner];
     }
@@ -62,7 +63,7 @@ contract Token {
     function transfer(address _to, uint _value) public returns (bool success) {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
-        Transfer(msg.sender, _to, _value);
+        emit Transfer(msg.sender,_to, _value);
         return true;
     }
     /**
@@ -82,7 +83,7 @@ contract Token {
         balances[_from] = balances[_from].sub(_value);
         allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
-        Transfer(_from, _to, _value);
+        emit Transfer(_from, _to, _value);
         return true;
     }
     /**
@@ -91,12 +92,10 @@ contract Token {
      * @param _value Number of tokens to `transferFrom`.
      * @return True if the approval succeeded.
      */
-    function approve(address _spender, uint _value)
-        public
-        returns (bool success)
+    function approve(address _spender, uint _value) public returns (bool success)
     {
         allowed[msg.sender][_spender] = _value;
-        Approval(msg.sender, _spender, _value);
+        emit Approval(msg.sender, _spender, _value);
         return true;
     }
     /**
@@ -106,10 +105,7 @@ contract Token {
      * @param _spender Wallet address that tokens can be deposited to.
      * @return The number of tokens allowed to be transferred.
      */
-    function allowance(address _owner, address _spender)
-        public
-        constant
-        returns (uint remaining)
+    function allowance(address _owner, address _spender) public view returns (uint remaining)
     {
         return allowed[_owner][_spender];
     }
