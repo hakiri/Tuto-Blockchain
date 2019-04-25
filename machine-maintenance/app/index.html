@@ -1,0 +1,166 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Machine Maintenance</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+ <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+ <!-- <link rel="stylesheet" href="./bootstrap.min.css"> -->
+ <link href="./app.css" rel='stylesheet' type='text/css'>
+ <!--  <script src="./app.js"></script>
+ <script src="./jquery.min.js"></script>
+ <script src="./bootstrap.min.js"></script>
+ <script src="./machineMaintainance.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./app.js"></script>
+ </head>
+ <body>
+  <div class="container-fluid">
+  <h1>Machine Maintenance Dapp</h1>
+  <h3 style="margin-top:0px; margin-bottom:30px ;"></h3>
+
+
+  <div class="row">
+  	<div class="col-md-8">
+  		<table class="table table-fluid">
+		   <tr>
+			   <th>Contract Address</th>
+			   <td><span class="black">
+			   <span id="cf_address"></span></span></td>
+		   </tr>
+		   <tr>
+			    <th>Machine Registered</th>
+			    <td><span class="black">
+			    <span id="cf_machines"></span></span></td>
+		   </tr>
+		   <tr>
+			    <th>Service Requests</th>
+			    <td><span class="black">
+			    <span id="cf_servicerequests"></span></span></td>
+		    </tr>
+	    </table>
+    </div>
+  </div>
+<div class="row>
+	<h2 style="padding-top: 0px;margin-bottom: 30px;">
+	<h3 style="margin-top: 0px;margin-bottom: 30px;">
+	view recent service requests.
+	Click on a machine-ID to view machine details.</h3>
+	<div class="col-md-7">
+		<div id="serviceTable"></div>
+		<br><br>
+		<div id="status">&nbsp;</div>
+	</div>
+	<div class="col-md-5">
+		<table class="table table-fluid">
+			<tr>
+				<th>Machine-ID</th>
+				<td><span class="black">
+				<span id="cf_machineID"></span></span></td>
+			</tr>
+			<tr>
+				<th>Machine Name</th>
+				<td><span class="black">
+				<span id ="cf_machineName"></span></span></td>
+			</tr>
+			<tr>
+				<th>Purchase Date</th>
+				<td><span class="black">
+				<span id="cf_purchaseDate"></span></span></td>
+			</tr>
+			<tr>
+				<th>Owner</th>
+				<td><span class="black">
+				<span id="cf_owner"></span></span></td>
+			</tr>
+			<tr>
+				<th>Manufacturer</th>
+				<td><span class="black">
+				<span id="cf_manufacturer"></span></span></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<!-- Registere New Machines and Request for the servicing -->
+</br></br><div class="row" style="height:100px">
+	<h2 style="padding-top: 50px;margin-bottom: 30px;"></h2>
+	<h3 style="margin-top: 50px;margin-bottom: 30px;"></h3>
+</div>
+<div class="row>
+	<h2 style="padding-top: 0px;margin-bottom: 30px;"></h2>
+	<div class="col-md-7">
+	<h3 style="margin-top: 0px;margin-bottom: 30px;">
+	Registere New Machine</h3>
+		<table class="table-fluid">
+			<tr>
+				<th>Machine-ID</th>
+				<td><input type="text" name="machineID" id="r_machineID"></td>
+			</tr>
+			<tr>
+				<th>Machine Name</th>
+				<td><input type="text" name="machineName" id="r_machineName"></td>
+			</tr>
+			<tr>
+				<th>Purchase Date</th>
+				<td><input type="text" name="purchaseDate" id="r_purchaseDate" readonly>
+			</tr>
+			<!--<tr>
+				<th>Owner</th>
+				<td><input type="text" name="owner" id="r_owner"></td>
+			</tr> -->
+			<tr>
+				<th>Manufacturer</th>
+				<td><input type="text" name="owner" id="r_manufacturer"></td>
+			</tr>
+			<tr>
+				<th>&nbsp;</th>
+				<td><input type="button" name="reigster" value="Register" id="Register" onclick="registerNewMachine()" class="btn btn-primary"></td>
+			</tr>
+			<div id="msg"></div>
+		</table>
+	</div>
+	<div class="col-md-5">
+	<h3 style="margin-top: 0px;margin-bottom: 30px;">
+	Request for new service.</h3>
+		<table class="table-fluid">
+			<tr>
+				<th>Machine-ID</th>
+				<td><input type="text" name="serviceMachineID" id="s_machineID"></td>
+			</tr>
+
+			<!--<tr>
+				<th>Machine Name</th>
+				<td><span class="black">
+				<span id ="cf_machineName"></span></span></td>
+			</tr> -->
+			<tr>
+				<th>Time Stamp</th>
+				<td><input type="text" name="timeStamp" id="s_timeStamp"></td>
+			</tr>
+
+			<!--<tr>
+				<th>Owner</th>
+				<td><span class="black">
+				<span id="cf_owner"></span></span></td>
+			</tr> -->
+			<tr>
+				<th>Remarks</th>
+				<td><input type="text" name="remarks" id="s_remarks"></td>
+			</tr>
+			</br>
+			<tr style="padding-top:200px,padding-bottom:50px">
+				<th>&nbsp;</th>
+				<td><input type="button" name="requestService" value="Request Service" id="requestService" onclick="requestMachineService()" class="btn btn-primary"></td>
+			</tr>
+			<div id="msg-service"></div>
+		</table>
+	</div>
+	</br></br></br></br></br></br></br></br></br></br>
+</div>
+
+</div>
+</body>
+</html>
