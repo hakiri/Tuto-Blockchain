@@ -4,9 +4,10 @@ pragma solidity >=0.4.22 <0.6.0;
 
 // import library file
 // Library SafeMath  
-//import "./SafeMath.sol";
-
+//import "./SafeMath.sol"; // Used with you own IDE on your laptop
+// For use with Remix, copy/past the content SafeMath.sol in your smart contract as below 
 /**
+ * 
  * @title SafeMath
  * @dev Unsigned math operations with safety checks that revert on error.
  */
