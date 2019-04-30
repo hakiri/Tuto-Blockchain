@@ -1,0 +1,25 @@
+// genesis.json
+{
+ "alloc": {
+    "0xca843569e3427144cead5e4d5999a3d0ccf92b8e": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x0fbdc686b912d7722dc86510934589e0aaf3b55a": {
+      "balance": "1000000000000000000000000000"
+    }
+  },
+ "config": {
+   "chainID": 68,
+   "homesteadBlock": 0,
+   "eip155Block": 0,
+   "eip158Block": 0
+ },
+ "nonce": "0x0000000000000000",
+ "difficulty": "0x0400",
+ "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+ "coinbase": "0x0000000000000000000000000000000000000000",
+ "timestamp": "0x00",
+ "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+ "extraData": "0x43a3dfdb4j343b428c638c19837004b5ed33adb3db69cbdb7a38e1e50b1b82fa",
+ "gasLimit": "0xffffffff"
+}
